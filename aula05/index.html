@@ -1,0 +1,47 @@
+</!DOCTYPE html>
+<html>
+<head>
+	<title>Aula 05</title>
+	<link rel="stylesheet" type="text/css" href="../extjs4/resources/css/ext-all.css">
+	<script type="text/javascript" src="../extjs4/ext-all.js"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+		
+		//Ext.ClassManager.create(name, config, callback)
+		Ext.define('CursoExt4.aula05.Usuario', {
+			nome: '',
+			senha: '',
+
+			constructor: function(options) {
+				Ext.apply(this, options || {});
+				console.log("Construtor chamado");
+			},
+
+			login: function() {
+				console.log("Realizando login");
+			},
+
+			logout: function() {
+				console.log("Realizando logout");
+			}
+		}, function() {
+			console.log("Callback chamado");
+		});
+
+		Ext.onReady(function() {
+			//var usuario = new CursoExt4.aula05.Usuario
+			//var usuario = Ext.ClassManager.instantiate(name, options)
+			var usuario = Ext.create('CursoExt4.aula05.Usuario', {
+				nome: 'Murilo',
+				senha: '1234'
+			});
+
+			console.log(usuario);
+			console.log("Usuario " + usuario.nome);
+			console.log("Senha " + usuario.senha);
+		});
+
+</script>
+</html>
