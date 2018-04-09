@@ -1,0 +1,47 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<title>Aula 18</title>
+	<link rel="stylesheet" type="text/css" href="../extjs4/resources/css/ext-all.css">
+	<script type="text/javascript" src="../extjs4/ext-all.js"></script>
+</head>
+<body>
+	<div id="estados">
+	</div>
+</body>
+<script type="text/javascript">	
+	var estadosBrasileiros = [
+	    {"id":'1', "nome":"Alagoas", "sigla":"AL"},
+	    {"id":'2', "nome":"Acre",    "sigla":"AC"},
+	    {"id":'3', "nome":"Ceara",   "sigla":"CE"}
+	];
+
+	Ext.define('Estado', {
+		extend: 'Ext.data.Model',
+		fields: ['id', 'nome', 'sigla']
+	});
+
+	Ext.define('EstadoStore', {
+		extend: 'Ext.data.Store',
+		model: 'Estado',
+		data: estadosBrasileiros,
+		proxy: {
+			type: 'memory',
+			format: 'json'
+		}
+	});
+	
+	Ext.onReady(function(){
+		var store = Ext.create('EstadoStore');
+
+		var template = Ext.create('Ext.XTemplate', 
+								  '<h1>Estados Brasileiros</h1>',
+								  '<tpl for=".">',
+								  '<p>{data.nome} - {data.sigla}</p>',
+								  '</tpl>'
+								 );
+
+		template.overwrite('estados', store.data.items);
+	});
+</script>
+</html>

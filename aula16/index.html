@@ -1,0 +1,49 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<title>Aula 16</title>
+	<link rel="stylesheet" type="text/css" href="../extjs4/resources/css/ext-all.css">
+	<script type="text/javascript" src="../extjs4/ext-all.js"></script>
+</head>
+<body>
+	<div id="estados">
+	</div>
+</body>
+<script type="text/javascript">	
+	Ext.define('Lista',{
+		extend: 'Ext.data.Model',
+		fields: [
+			{name: 'id',   type: 'int'},
+			{name: 'desc', type: 'string'}
+		]
+	});
+
+	Ext.define('LocalStore',{
+		extend: 'Ext.data.Store',
+		model: 'Lista',
+		proxy: {
+			type: 'localstorage',
+			id:   'preferencias'
+		}
+	});
+
+	Ext.onReady(function(){
+		var store = Ext.create('LocalStore');
+		
+		store.load();
+		store.add({desc:'gravar aula 16'});
+		store.add({desc:'gravar aula 17'});
+		store.add({desc:'gravar aula 18'});
+		store.sync();
+
+		store.load(function(records, op, success) {
+				var lista;
+				for (var i = 0; i < records.length; i++) {
+					lista = records[i].data;
+					console.log(lista.id + ' ' + lista.desc);
+				}
+			}
+		);
+    });
+</script>
+</html>
