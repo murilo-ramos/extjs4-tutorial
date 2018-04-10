@@ -1,0 +1,80 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<title>Aula 20</title>
+	<link rel="stylesheet" type="text/css" href="../extjs4/resources/css/ext-all.css">
+	<script type="text/javascript" src="../extjs4/ext-all.js"></script>
+</head>
+<body>    
+</body>
+<script type="text/javascript">
+	Ext.define('Contato', {
+		extend: 'Ext.data.Model',
+
+		fields: [
+			{name: 'ID',    type: 'int'},
+			{name: 'name',  type: 'string'},
+			{name: 'email', type: 'string'}
+		],
+
+		idProperty: 'ID' //used when id is not 'id'
+	});
+
+	Ext.define('ContatosStoreJson', {
+		extend: 'Ext.data.Store',
+		model: 'Contato',
+		proxy: {
+			type: 'ajax',
+			url: 'php/listaContatosJson.php',
+			
+			reader: {
+				type:   'json' //json or xml
+			}
+		},
+		autoLoad: true
+	});
+
+	Ext.define('ContatosStoreJsonRoot', {
+		extend: 'Ext.data.Store',
+		model: 'Contato',
+		proxy: {
+			type: 'ajax',
+			url: 'php/listaContatosJsonRoot.php',
+			
+			reader: {
+				type:   'json',
+				root:   'contatos'
+			}
+		},
+		autoLoad: true
+	});
+
+	Ext.define('ContatosStoreXml', {
+		extend: 'Ext.data.Store',
+		model: 'Contato',
+		proxy: {
+			type: 'ajax',
+			url: 'php/listaContatosXml.php',
+			
+			reader: {
+				type:   'xml',
+				root:   'contatos',
+				record: 'contato'
+			}
+		},
+		autoLoad: true
+	});
+	
+	Ext.onReady(function() {
+		var storeJson = Ext.create('ContatosStoreJson');
+		console.log(storeJson);
+
+		var storeJsonRoot = Ext.create('ContatosStoreJsonRoot');
+		console.log(storeJsonRoot);
+
+		var storeXml = Ext.create('ContatosStoreXml');
+		console.log(storeXml);
+    });
+</script>
+
+</html>
