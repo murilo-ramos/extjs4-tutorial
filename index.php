@@ -16,7 +16,7 @@ usort($g, function($a,$b) {
 });
 
 echo implode("<br>",
-             array_map(function($a) {
-                           return '<a href="'.$a.'/">'.$a.'</a>';
-             },
-             $g));
+    array_map(function($a) {
+        return '<a href="'.$a.'/">'.$a.'</a>';
+    },
+$g));

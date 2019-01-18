@@ -50,7 +50,7 @@
             "success" => $status,
             "contatos" => array(
                 "ID" => $db->lastInsertId(),
-                "name" => $nome,
+                "name" => $name,
                 "email" => $email
             )
         ));
