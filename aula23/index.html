@@ -1,0 +1,83 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<title>Aula 21</title>
+	<link rel="stylesheet" type="text/css" href="../extjs4/resources/css/ext-all.css">
+	<script type="text/javascript" src="../extjs4/ext-all.js"></script>
+</head>
+<body>    
+</body>
+<script type="text/javascript">
+	Ext.define('Contato', {
+		extend: 'Ext.data.Model',
+
+		fields: [
+			{name: 'ID',    type: 'int'},
+			{name: 'name',  type: 'string'},
+			{name: 'email', type: 'string'}
+		],
+
+		idProperty: 'ID'
+	});
+
+	Ext.define('ContatosStore', {
+		extend: 'Ext.data.Store',
+		model: 'Contato',
+		proxy: {
+			type: 'jsonp',
+
+			//url: 'http://loiane.com/cursoextjs4/aula23/php/listaContatos.php', Usado em caso somente de read
+
+			api: {
+				create: 'http://loiane.com/cursoextjs4/aula23/php/criaContato.php',
+				read: 'https://loiane.com/cursoextjs4/aula23/php/listaContatos.php',
+				update: 'http://loiane.com/cursoextjs4/aula23/php/atualizaContato.php',
+				destroy: 'http://loiane.com/cursoextjs4/aula23/php/deletaContato.php'
+			},
+
+			reader: {
+				type: 'json',
+				root: 'contatos'
+			},
+
+			writer: {
+				type: 'json',
+				root: 'contatos',
+				writeAllFields: true,
+				encode: true,
+				allowSingle: true
+			}
+		},
+		autoLoad: true,
+		autoSync: true
+	});
+	
+	Ext.onReady(function() {
+		var storeJson = Ext.create('ContatosStore');
+		
+		storeJson.on('load', function(store) {
+			console.log(store.data);
+
+
+
+			//var contato = Ext.create('Contato', {
+			//	name: 'Loiane Rest',
+			//	email: 'loiane@loiane.com'
+			//});
+
+			//store.add(contato); //create
+
+			//var contato01 = store.getAt(0); //get by store index
+			//contato01.set('name', 'TESTE'); //update
+
+			//store.remove(contato01);
+			//store.removeAt(index);
+			//store.removeAll(true);
+			//store.sync();
+
+			
+		});
+    });
+</script>
+
+</html>
